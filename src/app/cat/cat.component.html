@@ -1,0 +1,53 @@
+<div style="text-align:center">
+  <mat-toolbar color="primary" class="my-tool-bar">
+    <button fxHide fxShow.xs mat-icon-button class="example-icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>Cat Tinder Application</span>
+  </mat-toolbar>
+
+  <mat-form-field class="mat-form-class">
+    <input matInput [(ngModel)]="timeLeft" placeholder="give a duration in number" type="number" #timeInput="ngModel"
+      required maxlength="4" time>
+    <mat-error *ngIf="timeInput.invalid">Please enter a number</mat-error>
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)='startTimer()'>Start Matching</button>
+  <p mat-body-1>{{ timeLeft }} Sekunden verbleiben...</p>
+
+  <div fxLayout="column"
+       class="image-container"
+       *ngFor="let image of images">
+    <img class="image-wrapper" src="{{image.url}}">
+    <div fxLayout="row"
+         fxLayoutAlign="space-around"
+         class="action">
+      <button mat-stroked-button
+              color="accent"
+              (click)="getNegativBewertung()"
+              [disabled]="disabled">I DON'T LIKE
+      </button>
+      <button mat-stroked-button
+              color="primary"
+              (click)="getPositivBewertung()"
+              [disabled]="disabled">I LIKE
+      </button>
+      <button mat-stroked-button
+              color="primary"
+              (click)="getSkipedImage()"
+              [disabled]="disabled">SKIP >>
+      </button>
+    </div>
+  </div>
+
+  <div class="result-container" *ngIf="timeLeft===0">
+    <h3>Zusammenfassung</h3>
+    <ul>
+      <li>Gesamtzahl bewerteter Bilder:  {{gesamtZahl}}</li>
+      <li>Anzahl positiv bewerteter Bilder:  {{positivBewertung}}</li>
+      <li>Anzahl negative bewerteter Bilder:  {{negativBewertung}}</li>
+      <li>Anzahl übersprungener Bilder:  {{uebersprungene}}</li>
+    </ul>
+  </div>
+
+
+</div>
