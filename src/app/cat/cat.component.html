@@ -18,7 +18,7 @@
        class="image-container"
        *ngFor="let image of images">
     <img class="image-wrapper" src="{{image.url}}">
-    <div fxLayout="row"
+    <div id="target1" fxLayout="row"
          fxLayoutAlign="space-around"
          class="action">
       <button mat-stroked-button
@@ -39,7 +39,7 @@
     </div>
   </div>
 
-  <div class="result-container" *ngIf="timeLeft===0">
+  <div id="target2" class="result-container" *ngIf="timeLeft===0">
     <h3>Zusammenfassung</h3>
     <ul>
       <li>Gesamtzahl bewerteter Bilder:  {{gesamtZahl}}</li>

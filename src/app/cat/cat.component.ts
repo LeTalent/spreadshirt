@@ -16,6 +16,7 @@ export class CatComponent implements OnInit {
   negativBewertung = 0;
   uebersprungene = 0;
   disabled = true;
+  el: HTMLElement;
 
   constructor(private imageService: ImageService) { }
 
@@ -23,17 +24,17 @@ export class CatComponent implements OnInit {
     this.imageService.getImages().subscribe(res => this.images = res);
     console.log(this.images);
   }
-  getPositivBewertung(){
+  getPositivBewertung() {
     this.gesamtZahl++;
     this.positivBewertung++;
     return this.imageService.getImages().subscribe(res => this.images = res);
   }
-  getNegativBewertung(){
+  getNegativBewertung() {
     this.gesamtZahl++;
     this.negativBewertung++;
     return this.imageService.getImages().subscribe(res => this.images = res);
   }
-  getSkipedImage(){
+  getSkipedImage() {
     this.gesamtZahl++;
     this.uebersprungene++;
     return this.imageService.getImages().subscribe(res => this.images = res);
@@ -43,12 +44,22 @@ export class CatComponent implements OnInit {
     this.interval = setInterval(() => {
       if (this.timeLeft > 0) {
         this.disabled = false;
+        this.scroll1();
         return this.timeLeft--;
-      }else{
+      } else {
         clearInterval(this.interval);
         this.disabled = true;
+        this.scroll2();
       }
     }, 1000);
+  }
+  scroll1() {
+    document.querySelector('#target1')
+      .scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  scroll2() {
+    document.querySelector('#target2')
+      .scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
 }
