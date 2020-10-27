@@ -8,7 +8,7 @@
 
   <mat-form-field class="mat-form-class">
     <input matInput [(ngModel)]="timeLeft" placeholder="give a duration in number" type="number" #timeInput="ngModel"
-      required maxlength="4" time>
+      required min="1" max="60" time>
     <mat-error *ngIf="timeInput.invalid">Please enter a number</mat-error>
   </mat-form-field>
   <button mat-raised-button color="primary" (click)='startTimer()'>Start Matching</button>
