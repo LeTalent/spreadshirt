@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Image } from '../image.model';
 import { ImageService } from '../image.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cat',
   templateUrl: './cat.component.html',
   styleUrls: ['./cat.component.scss']
 })
-export class CatComponent implements OnInit {
+export class CatComponent implements OnInit, OnDestroy {
   timeLeft;
   interval;
   images: Image[] = [];
@@ -17,11 +18,12 @@ export class CatComponent implements OnInit {
   uebersprungene = 0;
   disabled = true;
   el: HTMLElement;
+  imageSubs: Subscription
 
   constructor(private imageService: ImageService) { }
 
   ngOnInit() {
-    this.imageService.getImages().subscribe(res => this.images = res);
+    this.imageSubs = this.imageService.getImages().subscribe(res => this.images = res);
     console.log(this.images);
   }
   getPositivBewertung() {
@@ -60,6 +62,10 @@ export class CatComponent implements OnInit {
   scroll2() {
     document.querySelector('#target2')
       .scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  ngOnDestroy(){
+    this.imageSubs.unsubscribe();
   }
 
 }
