@@ -18,28 +18,33 @@ export class CatComponent implements OnInit, OnDestroy {
   uebersprungene = 0;
   disabled = true;
   el: HTMLElement;
-  imageSubs: Subscription
+  imageSubs: Subscription;
+  imageSubsP: Subscription;
+  imageSubsN: Subscription;
+  imageSubsS: Subscription;
 
   constructor(private imageService: ImageService) { }
 
   ngOnInit() {
     this.imageSubs = this.imageService.getImages().subscribe(res => this.images = res);
-    console.log(this.images);
   }
   getPositivBewertung() {
     this.gesamtZahl++;
     this.positivBewertung++;
-    return this.imageService.getImages().subscribe(res => this.images = res);
+    this.imageSubsP = this.imageService.getImages().subscribe(res => this.images = res);
+    return this.imageSubsP;
   }
   getNegativBewertung() {
     this.gesamtZahl++;
     this.negativBewertung++;
-    return this.imageService.getImages().subscribe(res => this.images = res);
+    this.imageSubsN = this.imageService.getImages().subscribe(res => this.images = res);
+    return this.imageSubsN;
   }
   getSkipedImage() {
     this.gesamtZahl++;
     this.uebersprungene++;
-    return this.imageService.getImages().subscribe(res => this.images = res);
+    this.imageSubsS = this.imageService.getImages().subscribe(res => this.images = res);
+    return this.imageSubsS;
   }
 
   startTimer() {
@@ -66,6 +71,9 @@ export class CatComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(){
     this.imageSubs.unsubscribe();
+    this.imageSubsP.unsubscribe();
+    this.imageSubsN.unsubscribe();
+    this.imageSubsS.unsubscribe();
   }
 
 }
